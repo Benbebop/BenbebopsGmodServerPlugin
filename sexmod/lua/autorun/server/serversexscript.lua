@@ -11,19 +11,17 @@ local knownPlayers, networkindex = {}, {
 	["STEAM_0:1:200140622"] = "aidan"
 }
 gameevent.Listen( "player_connect" )
-function addPlayerFunc( data )
-	print(data.name .. " (" .. data.networkid .. ") has joined fuckers")
-	if networkindex[data.networkid] then
-		knownPlayers[networkindex[data.networkid]] = Player(data.userid)
-	end
-end
-hook.Add("player_connect", "addToKnownPlayers", addPlayerFunc)
-timer.Create("sexWaitPlayer", 0.5, math.huge, function() --TODO: dumb, fix it some other way 
-	local plr = player.GetAll()[1]
-	if plr then
-		addPlayerFunc({userid = plr:UserID(), networkid = plr:SteamID(), name = plr:GetName()})
-		timer.Remove("sexWaitPlayer")
-	end
+hook.Add("player_connect", "addToKnownPlayers", function( data )
+	timer.Create("sexWaitPlayer", 0.5, math.huge, function() --TODO: dumb, fix it some other way 
+		local plr, netid = Player(data.userid), data.networkid
+		if plr != Player(0) then
+			print(data.name .. " (" .. data.networkid .. ") entity has loaded")
+			if networkindex[data.networkid] then
+				knownPlayers[networkindex[data.networkid]] = Player(data.userid)
+			end
+			timer.Remove("sexWaitPlayer")
+		end
+	end)
 end)
 --script
 
