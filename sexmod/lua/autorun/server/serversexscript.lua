@@ -25,7 +25,7 @@ hook.Add("player_connect", "addToKnownPlayers", function( data )
 end)
 --script
 
-local sexVersion = "1.1.2"
+local sexVersion = "1.1.5"
 
 util.AddNetworkString( "THESEXHOOK" )
 util.AddNetworkString( "SexAlertClient" )
