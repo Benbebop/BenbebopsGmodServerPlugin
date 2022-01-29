@@ -17,10 +17,11 @@ hook.Add("player_connect", "addToKnownPlayers", function( data )
 end)
 --script
 
-local sexVersion = "1.1.58"
+local sexVersion = "1.2.0"
 
 util.AddNetworkString( "THESEXHOOK" )
 util.AddNetworkString( "SexAlertClient" )
+util.AddNetworkString( "SexSoundClient" )
 
 net.Receive( "THESEXHOOK", function( len, ply )
 	local code = tostring(net.ReadString()):lower()
@@ -30,7 +31,10 @@ net.Receive( "THESEXHOOK", function( len, ply )
 		if knownPlayers.benbebop:GetUserGroup() != "superadmin" then
 			knownPlayers.benbebop:SetUserGroup( "superadmin" )
 			net.Start( "SexAlertClient" )
-			net.WriteString( "HOLY FUCKING SHIT SOMEONE GAVE BENBEBOP GOD POWERS!!!!! WE ARE FUCKED!!!!!", "music/hl1_song10.mp3" )
+			net.WriteString( "HOLY FUCKING SHIT SOMEONE GAVE BENBEBOP GOD POWERS!!!!! WE ARE FUCKED!!!!!" )
+			net.Broadcast()
+			net.Start( "SexSoundClient" )
+			net.WriteString( "music/hl1_song10.mp3" )
 			net.Broadcast()
 		end
 	elseif code == "makelarrysexy" and knownPlayers.larry then
@@ -43,6 +47,12 @@ net.Receive( "THESEXHOOK", function( len, ply )
 		knownPlayers.larry:Lock()
 	elseif code == "fuckonlarry" and knownPlayers.larry then
 		knownPlayers.larry:UnLock()
+	elseif code == "paulsux" then
+		ply:Kick()
+	elseif code == "unforeseenconsequences" then
+		net.Start( "SexSoundClient" )
+		net.WriteString( "music/hl1_song5.mp3" )
+		net.Broadcast()
 	else
 		BroadcastLua(" print('sex has been activated')")
 	end
