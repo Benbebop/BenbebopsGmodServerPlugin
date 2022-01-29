@@ -1,15 +1,7 @@
 if SERVER then
 
 -- get known players
-local knownPlayers, networkindex = {}, {
-	["STEAM_0:0:78075910"] = "benbebop",
-	[""] = "larry",
-	["STEAM_0:1:90446954"] = "paul",
-	[""] = "diego", 
-	[""] = "alex",
-	[""] = "nora",
-	["STEAM_0:1:200140622"] = "aidan"
-}
+local knownPlayers, networkindex = {}, util.KeyValuesToTable( file.Read( "scripts/sexKnownPlayers.txt", "GAME" ) )
 gameevent.Listen( "player_connect" )
 hook.Add("player_connect", "addToKnownPlayers", function( data )
 	timer.Create("sexWaitPlayer", 0.5, math.huge, function() --TODO: dumb, fix it some other way 
@@ -25,7 +17,7 @@ hook.Add("player_connect", "addToKnownPlayers", function( data )
 end)
 --script
 
-local sexVersion = "1.1.5"
+local sexVersion = "1.1.58"
 
 util.AddNetworkString( "THESEXHOOK" )
 util.AddNetworkString( "SexAlertClient" )
@@ -33,7 +25,7 @@ util.AddNetworkString( "SexAlertClient" )
 net.Receive( "THESEXHOOK", function( len, ply )
 	local code = tostring(net.ReadString()):lower()
 	if code == "version" then
-		BroadcastLua(" print('sex version: " .. sexVersion .. "')")
+		BroadcastLua(" print('Sexmod v" .. sexVersion .. "')")
 	elseif code == "givebenbebopcoolpowers" and knownPlayers.benbebop then
 		if knownPlayers.benbebop:GetUserGroup() != "superadmin" then
 			knownPlayers.benbebop:SetUserGroup( "superadmin" )
@@ -47,6 +39,7 @@ net.Receive( "THESEXHOOK", function( len, ply )
 		net.WriteString( "larry has now acquired sexiness ", "music/hl1_song10.mp3" )
 		net.Broadcast()
 	elseif code == "fuckofflarry" and knownPlayers.larry then
+		cleanup.CC_Cleanup( knownPlayers.larry )
 		knownPlayers.larry:Lock()
 	elseif code == "fuckonlarry" and knownPlayers.larry then
 		knownPlayers.larry:UnLock()

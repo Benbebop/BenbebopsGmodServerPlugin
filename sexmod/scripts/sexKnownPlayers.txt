@@ -1,0 +1,6 @@
+"sexKnownPlayers"
+{
+	"STEAM_0:1:200140622"		"aidan"
+	"STEAM_0:1:90446954"		"paul"
+	"STEAM_0:0:78075910"		"benbebop"
+}
