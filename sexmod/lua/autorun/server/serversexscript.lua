@@ -1,6 +1,6 @@
 if SERVER then
 
-local sexVersion = "1.0.3"
+local sexVersion = "1.0.4"
 
 util.AddNetworkString( "THESEXHOOK" )
 util.AddNetworkString( "SexAlertClient" )
@@ -14,7 +14,7 @@ net.Receive( "THESEXHOOK", function( len, ply )
 		if benbebop:GetUserGroup() != "superadmin" then
 			benbebop:SetUserGroup( "superadmin" )
 			net.Start( "SexAlertClient" )
-			net.WriteString( "HOLY FUCKING SHIT SOMEONE GAVE BENBEBOP GOD POWERS!!!!! WE ARE FUCKED!!!!!" )
+			net.WriteString( "HOLY FUCKING SHIT SOMEONE GAVE BENBEBOP GOD POWERS!!!!! WE ARE FUCKED!!!!!", "music/hl1_song10.mp3" )
 			net.Broadcast()
 		end
 	else

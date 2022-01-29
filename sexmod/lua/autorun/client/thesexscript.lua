@@ -15,8 +15,11 @@ concommand.Add("sex", function(ply, cmd, args)
 end)
 
 net.Receive( "SexAlertClient", function()
-	surface.PlaySound( "music/hl1_song10.mp3" )
-	LocalPlayer():PrintMessage( HUD_PRINTCENTER, net.ReadString() )
+	local message, sound = net.ReadString()
+	if sound then
+		surface.PlaySound( sound )
+	end
+	LocalPlayer():PrintMessage( HUD_PRINTCENTER, message )
 end )
 
 end
