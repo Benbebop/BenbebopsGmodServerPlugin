@@ -3,4 +3,7 @@
 	"STEAM_0:1:200140622"		"aidan"
 	"STEAM_0:1:90446954"		"paul"
 	"STEAM_0:0:78075910"		"benbebop"
+	"STEAM_0:0:103612743"		"larry"
+	"STEAM_0:0:0"		"diego"
+	"STEAM_0:0:0"		"nora"
 }

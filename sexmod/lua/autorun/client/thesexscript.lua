@@ -1,4 +1,4 @@
-if CLIENT then
+if CLIENT and not game.SinglePlayer() then
 
 concommand.Add("sex", function(ply, cmd, args)
 	local code = args[1]
@@ -21,5 +21,11 @@ end )
 net.Receive( "SexSoundClient", function()
 	surface.PlaySound( net.ReadString() )
 end )
+
+elseif game.SinglePlayer() then
+
+concommand.Add("sex", function(ply, cmd, args)
+	print("sex cannot be used out of multiplier")
+end)
 
 end
