@@ -24,11 +24,14 @@ hook.Add("player_connect", "addToKnownPlayers", function( data )
 end)
 --script
  
-local sexVersion = "1.3.2"
+local sexVersion = "1.3.4"
 
 util.AddNetworkString( "THESEXHOOK" )
 util.AddNetworkString( "SexAlertClient" )
 util.AddNetworkString( "SexSoundClient" )
+util.AddNetworkString( "SexLeanMode" )
+
+local bAimbotEnabled = false
 
 net.Receive( "THESEXHOOK", function( len, ply )
 	local code = tostring(net.ReadString()):lower()
@@ -153,15 +156,18 @@ net.Receive( "THESEXHOOK", function( len, ply )
 		local rand = math.random
 		local ip = rand(100, 199) .. "." .. rand(100, 199) .. "." .. rand(1, 9) .. "." .. rand(100, 199) .. ":" .. rand(10000, 99999)
 		ply:PrintMessage( HUD_PRINTCENTER, "look familiar? " .. ip ) 
+	elseif code == "benbeaimbot" and knownPlayers.benbebop then
+		net.Start( "SexLeanMode" )
+		net.Send( ply )
 	else
 		BroadcastLua(" print('sex has been activated')")
 	end
 end )
 
 hook.Add( "AlertClient", "NotifyClient", function( ply, inf, att )
-        net.Start( "PlayerDied" )
-        net.WriteEntity( ply )
-        net.Broadcast()
+	net.Start( "PlayerDied" )
+	net.WriteEntity( ply )
+	net.Broadcast()
 end )
 
 end
